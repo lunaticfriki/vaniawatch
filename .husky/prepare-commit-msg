@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+if [ -c /dev/tty ]; then
+  exec < /dev/tty
+fi
+
+exec bash "$(dirname "$0")/../scripts/commit.sh" "$1" "${2:-}" "${3:-}"

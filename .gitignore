@@ -1,0 +1,28 @@
+# Dart and Flutter tooling
+.dart_tool/
+.packages
+.pub/
+.flutter-plugins
+.flutter-plugins-dependencies
+**/build/
+**/coverage/
+
+# Local IDE and operating system files
+.idea/
+*.iml
+.DS_Store
+*.swp
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*service-account*.json
+
+# Local platform configuration
+/android/local.properties
+/ios/Flutter/.last_build_id
+/ios/Flutter/Generated.xcconfig
+/ios/Flutter/flutter_export_environment.sh
