@@ -1,0 +1,12 @@
+.git
+.dart_tool
+.idea
+.obsidian
+**/.dart_tool
+**/build
+**/coverage
+**/.env
+**/.env.*
+**/*.pem
+**/*.key
+**/*service-account*.json

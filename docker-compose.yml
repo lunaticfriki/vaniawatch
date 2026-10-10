@@ -1,0 +1,5 @@
+services:
+  core-checks:
+    build:
+      context: .
+      dockerfile: docker/core.Dockerfile

@@ -15,7 +15,7 @@ as an Obsidian vault; pages use Obsidian wikilinks and native Mermaid diagrams.
 - [[architecture/domain-model]]: current domain concepts and ownership.
 - [[change-harness]]: action gate, impact graph, and recording workflow.
 - [[git-workflow]]: commit prompt and pre-push validation hooks.
-- [[action-log/README]]: append-only feature/fix record index.
+- [[docker]]: Docker-based core analysis and test checks.
 
 ## Dependency Graph
 

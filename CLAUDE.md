@@ -32,13 +32,13 @@ Read [[index]] and [[architecture/README]] before changing project code.
 - Do not add application, infrastructure, or presentation behavior until the
   user asks for that phase.
 
-## Change Gate And Records
+## Change Gate And Results
 
 - Before a proposed change, run `dart tool/change_harness.dart --action "..."
   --files path/to/file.dart` with the planned action and affected paths.
 - A `PROHIBIT` result blocks the change. A `REVIEW` result needs an explicit
   human decision before proceeding.
-- After each completed feature or fix, rerun the harness with the actual
-  changed paths and `--record`. Preserve the generated note under
-  `docs/action-log/`; never rewrite an earlier record.
+- Do not create or maintain action logs. At the end of each completed feature
+  or fix, report the change summary and validation results to the user in the
+  conversation.
 - Update the Obsidian architecture pages when a boundary or policy changes.

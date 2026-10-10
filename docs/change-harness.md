@@ -42,7 +42,6 @@ flowchart TD
   Rules -. constrain .-> Frontend
   Harness["change harness"] --> Gate["policy and static checks"]
   Harness --> Impact["affected components"]
-  Harness --> Ledger["docs/action-log"]
 ```
 
 The CLI prints direct and downstream impact from the declared file paths.
@@ -50,19 +49,10 @@ Changing `core/` therefore flags both future application consumers.
 
 ## After A Feature Or Fix
 
-Rerun with the actual changed paths and `--record`. Each report is created as
-a new dated Markdown file and is never overwritten:
-
-```sh
-dart tool/change_harness.dart \
-  --action "Add a watch reference number" \
-  --files core/catalog/entities/watch.entity.dart,core/catalog/value_objects \
-  --record
-```
-
-The report records the decision, impact, files, and static checks. Add the
-implemented behavior and validation commands to that report before treating
-it as a completed change record. See [[action-log/README]].
+The harness prints the decision, affected components, and boundary-check
+results directly to the terminal. It does not write reports or action logs.
+At completion, summarize the actual changes and validation results to the
+user in the conversation.
 
 ## Obsidian MCP
 

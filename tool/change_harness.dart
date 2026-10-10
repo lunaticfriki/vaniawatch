@@ -26,18 +26,6 @@ void main(List<String> arguments) {
   );
   stdout.writeln('Ownership findings: ${_formatFindings(ownershipFindings)}');
 
-  if (options.record) {
-    final record = _writeRecord(
-      action: action,
-      files: files,
-      decision: decision,
-      impact: impact,
-      boundaryFindings: boundaryFindings,
-      ownershipFindings: ownershipFindings,
-    );
-    stdout.writeln('Record: ${record.path}');
-  }
-
   if (decision == _Decision.prohibit ||
       boundaryFindings.isNotEmpty ||
       ownershipFindings.isNotEmpty) {
@@ -48,7 +36,6 @@ void main(List<String> arguments) {
 _Options? _parseArguments(List<String> arguments) {
   String? action;
   final files = <String>[];
-  var record = false;
 
   for (var index = 0; index < arguments.length; index++) {
     switch (arguments[index]) {
@@ -65,16 +52,13 @@ _Options? _parseArguments(List<String> arguments) {
               .where((path) => path.isNotEmpty),
         );
         break;
-      case '--record':
-        record = true;
-        break;
       default:
         return null;
     }
   }
 
   if (action == null || action.trim().isEmpty) return null;
-  return _Options(action: action, files: files, record: record);
+  return _Options(action: action, files: files);
 }
 
 _Decision _decisionFor(String action, List<String> files) {
@@ -106,7 +90,7 @@ List<String> _impactFor(List<String> files) {
     } else if (path.startsWith('docs/')) {
       impact.add('project rules and documentation');
     } else if (path.startsWith('tool/')) {
-      impact.addAll(['change gate', 'action log']);
+      impact.addAll(['change gate', 'policy checks']);
     } else {
       impact.add('project root or unclassified path');
     }
@@ -155,73 +139,12 @@ List<String> _checkOwnerScopedRepository() {
   return findings;
 }
 
-File _writeRecord({
-  required String action,
-  required List<String> files,
-  required _Decision decision,
-  required List<String> impact,
-  required List<String> boundaryFindings,
-  required List<String> ownershipFindings,
-}) {
-  final now = DateTime.now();
-  final date =
-      '${now.year.toString().padLeft(4, '0')}-'
-      '${now.month.toString().padLeft(2, '0')}-'
-      '${now.day.toString().padLeft(2, '0')}';
-  final slug = action
-      .toLowerCase()
-      .replaceAll(RegExp(r'[^a-z0-9]+'), '-')
-      .replaceAll(RegExp(r'^-+|-+$'), '');
-  final directory = Directory('docs/action-log');
-  directory.createSync(recursive: true);
-
-  var suffix = 1;
-  late File record;
-  do {
-    final sequence = suffix == 1 ? '' : '-$suffix';
-    record = File('${directory.path}/$date-$slug$sequence.md');
-    suffix++;
-  } while (record.existsSync());
-
-  record.writeAsStringSync('''
----
-date: $date
-type: change-record
-decision: ${decision.label.toLowerCase()}
-tags:
-  - action-log
----
-
-# $action
-
-## Decision
-
-${decision.label}
-
-## Affected Components
-
-${impact.map((item) => '- $item').join('\n')}
-
-## Changed Paths
-
-${files.map((path) => '- `$path`').join('\n')}
-
-## Checks
-
-- Core dependency boundary: ${_formatFindings(boundaryFindings)}
-- Watch ownership boundary: ${_formatFindings(ownershipFindings)}
-- Feature/fix summary: complete this section.
-- Validation commands and results: complete this section.
-''');
-  return record;
-}
-
 String _formatFindings(List<String> findings) =>
     findings.isEmpty ? 'passed' : findings.join('; ');
 
 void _printUsage() {
   stderr.writeln(
-    'Usage: dart tool/change_harness.dart --action "..." --files path[,path] [--record]',
+    'Usage: dart tool/change_harness.dart --action "..." --files path[,path]',
   );
 }
 
@@ -236,13 +159,8 @@ enum _Decision {
 }
 
 class _Options {
-  const _Options({
-    required this.action,
-    required this.files,
-    required this.record,
-  });
+  const _Options({required this.action, required this.files});
 
   final String? action;
   final List<String> files;
-  final bool record;
 }

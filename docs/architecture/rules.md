@@ -70,8 +70,8 @@ These rules specialize the shared architecture standards for Vaniawatch.
   `dart run test catalog/entities/__tests__/watch.entity_test.dart
   auth/value_objects/__tests__/email_address.value_object_test.dart
   auth/entities/__tests__/user.entity_test.dart` for domain changes.
-- Run the change harness before a change and record the completed action in
-  `docs/action-log/` afterward.
+- Run the change harness before a change. Do not persist action logs; report
+  the completed change and validation results to the user in the conversation.
 - Install the repository's commit and pre-push hooks with
   `sh scripts/install-hooks.sh`; the workflow is documented in
   [[../git-workflow]].

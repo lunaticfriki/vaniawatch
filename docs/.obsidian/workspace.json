@@ -190,9 +190,8 @@
   },
   "active": "5e24ce755567d2a6",
   "lastOpenFiles": [
-    "action-log/2026-10-10-add-commit-menu-and-pre-push-validation-hooks.md",
+    "docker.md",
     "git-workflow.md",
-    "action-log/2026-10-10-add-empty-factories-to-domain-entities.md",
     "change-harness.md"
   ]
 }
