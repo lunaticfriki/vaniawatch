@@ -11,7 +11,7 @@ tests:
 ---
 # {{title}}
 
-Module: [[frontend.<module>]]
+Module: [[frontend.<module> (module)]]
 Rules: [[06-frontend-flutter#State service (Cubit)]]
 
 ## Purpose

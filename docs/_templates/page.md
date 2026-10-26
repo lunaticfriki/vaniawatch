@@ -12,7 +12,7 @@ tests:
 ---
 # {{title}}
 
-Module: [[frontend.<module>]]
+Module: [[frontend.<module> (module)]]
 Rules: [[06-frontend-flutter#Widgets: page, view, skeleton]]
 
 ## Purpose

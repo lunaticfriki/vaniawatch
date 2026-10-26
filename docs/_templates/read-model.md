@@ -10,7 +10,7 @@ tests:
 ---
 # {{title}}
 
-Module: [[<package>.<module>]]
+Module: [[<package>.<module> (module)]]
 Rules: [[04-application-layer-cqrs#Read models are optional]]
 
 ## Purpose

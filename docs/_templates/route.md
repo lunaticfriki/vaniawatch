@@ -10,7 +10,7 @@ tests:
 ---
 # {{title}}
 
-Module: [[backend.<module>]]
+Module: [[backend.<module> (module)]]
 Rules: [[07-backend-frog#Routes are thin adapters]]
 
 ## Purpose

@@ -20,7 +20,7 @@ docs/
     core/
       core.md             package note: lists modules
       <module>/
-        core.<module>.md  module note: lists every concept in the module
+        core.<module> (module).md   module note: lists every concept
         core.<Name>.md    concept notes
     frontend/
     backend/
@@ -35,7 +35,7 @@ docs/
 ### Naming
 
 - Every codebase note is named `<package>.<Name>`, for example `core.Order`, `core.OrderId`, `frontend.OrderDetailsCubit` or `backend.OrderReadService`. The prefix keeps names unique across packages, since `OrderReadService` exists in both apps, and it shows the package in the graph.
-- A module note is named `<package>.<module>`, for example `core.ordering`.
+- A module note is named `<package>.<module> (module)`, for example `core.watch (module)`. The suffix matters: macOS and Windows file systems are case-insensitive, so `core.watch.md` and `core.Watch.md` would be the same file. `pnpm docs:check` rejects note names that differ only by case.
 - A package note is named after the package: `core`, `frontend`, `backend`.
 
 ### One note per concept

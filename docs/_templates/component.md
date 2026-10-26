@@ -10,7 +10,7 @@ tests:
 ---
 # {{title}}
 
-Module: [[<package>.<module>]]
+Module: [[<package>.<module> (module)]]
 Rules: [[08-structure-and-naming]]
 
 ## Purpose

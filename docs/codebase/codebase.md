@@ -7,7 +7,7 @@ The map of all the code. Start here before opening any source file. See [[05-doc
 
 | Package | Note | Status |
 |---|---|---|
-| Domain (pure Dart) | [[core]] | implemented (scaffold, no modules yet) |
+| Domain (pure Dart) | [[core]] | implemented: modules user and watch, plus shared |
 | Flutter app | [[frontend]] | planned |
 | Dart Frog server | [[backend]] | planned |
 

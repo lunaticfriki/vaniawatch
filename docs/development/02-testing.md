@@ -21,6 +21,21 @@ Testing mirrors the layers:
 
 `mockito` code generation is not used.
 
+## Running
+
+`make <command> [core|back|front]`, run from the repo root. Without a scope, the command runs on every package and skips packages that don't exist yet. With a scope, a missing package is an error.
+
+| Command | Runs |
+|---|---|
+| `make test core` | `dart test` in `core` |
+| `make test back` | `dart test` in `backend` |
+| `make test front` | `flutter test` in `frontend` |
+| `make test` | all of the above |
+| `make analyze [scope]` | `analyze --fatal-infos` |
+| `make format [scope]` | `format .` |
+| `make check` | `pnpm check`: the docs check plus format, analyze and test for every package, the same as pre-push |
+| `make docs` | `pnpm docs:check` |
+
 ## Domain tests: no mocks
 
 ```dart

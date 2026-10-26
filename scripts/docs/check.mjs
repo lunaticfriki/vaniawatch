@@ -78,6 +78,18 @@ for (const note of notes) {
 
 const errors = []
 
+const checkCaseCollisions = () => {
+  const byLowerName = new Map()
+  for (const note of notes) {
+    const key = note.name.toLowerCase()
+    const existing = byLowerName.get(key)
+    if (existing && existing.name !== note.name) {
+      errors.push(`${note.vaultPath}: name differs only by case from ${existing.vaultPath}`)
+    }
+    byLowerName.set(key, note)
+  }
+}
+
 const checkLinks = (note) => {
   for (const [, target, heading] of stripCode(note.content).matchAll(
     /!?\[\[([^\]|#]*)(?:#([^\]|]*))?(?:\|[^\]]*)?\]\]/g,
@@ -119,6 +131,7 @@ for (const note of notes) {
   checkLinks(note)
   checkSources(note)
 }
+checkCaseCollisions()
 checkCoverage()
 
 if (errors.length > 0) {

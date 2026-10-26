@@ -1,1 +1,21 @@
 library;
+
+export 'src/shared/errors/domain_error.dart';
+export 'src/shared/errors/invalid_updated_at_error.dart';
+export 'src/shared/services/uuid_service.dart';
+export 'src/shared/value_objects/created_at_value_object.dart';
+export 'src/shared/value_objects/updated_at_value_object.dart';
+export 'src/user/entities/user_entity.dart';
+export 'src/user/value_objects/user_email_value_object.dart';
+export 'src/user/value_objects/user_id_value_object.dart';
+export 'src/user/value_objects/user_name_value_object.dart';
+export 'src/watch/entities/watch_entity.dart';
+export 'src/watch/value_objects/watch_brand_value_object.dart';
+export 'src/watch/value_objects/watch_category_value_object.dart';
+export 'src/watch/value_objects/watch_description_value_object.dart';
+export 'src/watch/value_objects/watch_id_value_object.dart';
+export 'src/watch/value_objects/watch_image_url_value_object.dart';
+export 'src/watch/value_objects/watch_name_value_object.dart';
+export 'src/watch/value_objects/watch_tag_value_object.dart';
+export 'src/watch/value_objects/watch_tags_value_object.dart';
+export 'src/watch/value_objects/watch_type_value_object.dart';

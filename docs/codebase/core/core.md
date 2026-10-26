@@ -24,8 +24,13 @@ The domain of VaniaWatch: entities, value objects, repository ports, domain serv
 
 ## Modules
 
-None yet.
+- [[core.user (module)]]: users who own private watch collections
+- [[core.watch (module)]]: the watches in a collection
 
 ## Shared
 
-None yet. The base types `DomainError` and `DomainWarning` will be documented here once they exist.
+- [[core.shared (module)]]: `DomainError`, `InvalidUpdatedAtError`, `CreatedAt`, `UpdatedAt`, `UuidService`
+
+## Public API
+
+Every domain class above is exported from `core/lib/core.dart`. The tests import only `package:core/core.dart` and `package:core/testing.dart`.

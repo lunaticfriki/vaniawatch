@@ -11,3 +11,5 @@ Architecture decision records. Add a new one from the `decision` template whenev
 | [[ADR-0002 tests mirror lib]] | Tests live under `test/`, mirroring `lib/`. Shared Mothers are exported from `core/lib/testing.dart`. | accepted |
 | [[ADR-0003 commit menu in prepare-commit-msg]] | The commit menu runs in the `prepare-commit-msg` hook, with commitlint as a backstop. | accepted |
 | [[ADR-0004 docs vault is the map of the code]] | The Obsidian vault is read before the code and updated after every task. | accepted |
+| [[ADR-0005 entities receive time and reference owners by id]] | Entities receive `CreatedAt` and `UpdatedAt` from outside, timestamps only move forward, and a watch references its owner by `UserId`. | accepted |
+| [[ADR-0006 complications are plain strings]] | `Watch.complications` is a plain `List<String>`, a scoped exception to the no-primitives rule. | accepted |

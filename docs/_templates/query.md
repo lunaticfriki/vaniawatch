@@ -11,7 +11,7 @@ tests:
 ---
 # {{title}}
 
-Module: [[<package>.<module>]]
+Module: [[<package>.<module> (module)]]
 Rules: [[04-application-layer-cqrs#Commands and queries, no use cases]]
 
 ## Purpose

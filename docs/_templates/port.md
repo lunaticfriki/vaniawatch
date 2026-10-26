@@ -10,7 +10,7 @@ tests:
 ---
 # {{title}}
 
-Module: [[core.<module>]]
+Module: [[core.<module> (module)]]
 Rules: [[03-domain-layer#Repository ports]]
 
 ## Purpose

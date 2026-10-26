@@ -43,8 +43,10 @@ Create notes for new concepts first, from `docs/_templates/` with `status: plann
 
 ```sh
 pnpm install
-pnpm check
-pnpm docs:check
+make test core        # also: back, front; no scope = all
+make analyze core
+make check            # same as pre-push
+make docs
 ```
 
 Commits use `type(scope): description`, with scope `core`, `backend`, `frontend` or `repo`. Use `git commit -m "..."` in non-interactive shells. See docs/development/04-git-workflow.md.

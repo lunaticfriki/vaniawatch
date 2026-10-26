@@ -1,1 +1,20 @@
 library;
+
+export 'src/testing/shared/created_at_mother.dart';
+export 'src/testing/shared/primitive_mother.dart';
+export 'src/testing/shared/updated_at_mother.dart';
+export 'src/testing/user/user_email_mother.dart';
+export 'src/testing/user/user_id_mother.dart';
+export 'src/testing/user/user_mother.dart';
+export 'src/testing/user/user_name_mother.dart';
+export 'src/testing/watch/watch_brand_mother.dart';
+export 'src/testing/watch/watch_category_mother.dart';
+export 'src/testing/watch/watch_complications_mother.dart';
+export 'src/testing/watch/watch_description_mother.dart';
+export 'src/testing/watch/watch_id_mother.dart';
+export 'src/testing/watch/watch_image_url_mother.dart';
+export 'src/testing/watch/watch_mother.dart';
+export 'src/testing/watch/watch_name_mother.dart';
+export 'src/testing/watch/watch_tag_mother.dart';
+export 'src/testing/watch/watch_tags_mother.dart';
+export 'src/testing/watch/watch_type_mother.dart';

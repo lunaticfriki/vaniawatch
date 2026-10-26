@@ -10,7 +10,7 @@ tests:
 ---
 # {{title}}
 
-Module: [[<package>.<module>]]
+Module: [[<package>.<module> (module)]]
 Rules: [[05-infrastructure-layer#Swappable implementations]]
 
 ## Purpose
