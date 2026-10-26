@@ -1,0 +1,5 @@
+if sh -c ': < /dev/tty' 2>/dev/null; then
+  exec < /dev/tty
+fi
+
+node scripts/git/commit-message.mjs "$1" "$2" "$3"

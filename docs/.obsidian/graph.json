@@ -1,0 +1,15 @@
+{
+  "showTags": false,
+  "showAttachments": false,
+  "hideUnresolved": false,
+  "showOrphans": true,
+  "colorGroups": [
+    { "query": "path:codebase/core", "color": { "a": 1, "rgb": 3381759 } },
+    { "query": "path:codebase/frontend", "color": { "a": 1, "rgb": 3066993 } },
+    { "query": "path:codebase/backend", "color": { "a": 1, "rgb": 15105570 } },
+    { "query": "path:architecture", "color": { "a": 1, "rgb": 10181046 } },
+    { "query": "path:development", "color": { "a": 1, "rgb": 15844367 } },
+    { "query": "path:decisions", "color": { "a": 1, "rgb": 9807270 } }
+  ],
+  "showArrow": true
+}
