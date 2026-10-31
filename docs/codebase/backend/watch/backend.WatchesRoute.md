@@ -10,12 +10,14 @@ source:
   - backend/lib/modules/watch/presentation/create_watch_request.dart
   - backend/lib/modules/watch/presentation/update_watch_request.dart
   - backend/lib/modules/watch/presentation/watch_response.dart
+  - backend/lib/modules/watch/presentation/watch_openapi.dart
 tests:
   - backend/test/routes/watches/index_test.dart
   - backend/test/routes/watches/[id]_test.dart
   - backend/test/modules/watch/presentation/create_watch_request_test.dart
   - backend/test/modules/watch/presentation/update_watch_request_test.dart
   - backend/test/modules/watch/presentation/watch_response_test.dart
+  - backend/test/modules/watch/presentation/watch_openapi_test.dart
 ---
 # backend.WatchesRoute
 
@@ -45,6 +47,10 @@ Without the header, any of these is a 401. Any other method is a 405.
 {"name": "Speedmaster", "brand": "Omega", "type": "analog", "category": "mechanical",
  "description": "", "tags": ["chrono"], "complications": ["chronograph"], "imageUrl": "https://..."}
 ```
+
+## API documentation
+
+`WatchOpenApi.section` documents these five operations, with the `WatchInput`, `Watch` and `CreatedWatch` schemas. Its length limits and enum values are read from the domain classes ([[core.WatchName]], [[core.WatchBrand]], [[core.WatchDescription]], [[core.WatchTags]], [[core.WatchTag]], [[core.WatchType]], [[core.WatchCategory]]), so they cannot drift. See [[backend.OpenApiDocument]].
 
 ## Relations
 

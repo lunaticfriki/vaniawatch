@@ -1,0 +1,13 @@
+FROM dart:stable
+
+RUN dart pub global activate dart_frog_cli \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends procps \
+  && rm -rf /var/lib/apt/lists/*
+ENV PATH="/root/.pub-cache/bin:${PATH}"
+ENV PUB_CACHE=/pub-cache
+
+WORKDIR /app/backend
+
+EXPOSE 8080
+CMD ["/app/backend/docker/dev/entrypoint.sh"]

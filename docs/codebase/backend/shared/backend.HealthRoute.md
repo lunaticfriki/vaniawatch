@@ -5,6 +5,7 @@ module: shared
 status: implemented
 source:
   - backend/routes/health.dart
+  - backend/lib/shared/http/health_openapi.dart
 tests:
   - backend/test/routes/health_test.dart
 ---
@@ -19,7 +20,7 @@ Rules: [[07-backend-frog#Routes are thin adapters]]
 |---|---|---|---|
 | GET | `/health` | 200 `{"status": "ok"}` | 405 for other methods |
 
-It needs no `X-User-Id`.
+It needs no `X-User-Id`. It is documented by `HealthOpenApi.section` ([[backend.OpenApiDocument]]).
 
 ## Relations
 

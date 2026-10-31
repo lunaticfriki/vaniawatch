@@ -47,8 +47,8 @@ make test core        # also: back, front; no scope = all
 make analyze core
 make check            # same as pre-push
 make docs
-make up               # Postgres + API in Docker (localhost:8080)
-make dev              # Postgres in Docker, API with hot reload
+make up               # Postgres + production-like API image (localhost:8080)
+make backend-dev      # Postgres + API dev server in Docker, restarts on change
 make test-integration # backend tests against Postgres
 ```
 

@@ -25,19 +25,30 @@ Every setting has a default, so no configuration is needed. To change one, copy 
 
 | Command | What it does |
 |---|---|
-| `make up` | Builds the API image and starts Postgres and the API. It waits until both are healthy. The API is at `http://localhost:8080`. |
-| `make down` | Stops the containers. The data is kept in the `db-data` volume. |
-| `make logs` | Follows the API logs. |
+| `make backend-dev` | **Day-to-day development.** Starts Postgres if it is not up, then the API dev server if it is not up. Both run in Docker. It waits for `/health` and prints the URLs. Running it again is safe: it only starts what is missing. It stops the production-like `api` container first if that one holds the port. |
+| `make backend-logs` | Follows the API logs (dev or production-like). |
+| `make backend-stop` | Stops the API and keeps Postgres running. |
+| `make up` | Builds the production-like image (AOT, `scratch`) and starts it with Postgres. Use it to check the real container. It stops the dev server first. |
+| `make down` | Stops every container. The data is kept in the `db-data` volume. |
 | `make db` | Starts only Postgres. |
 | `make db-shell` | Opens `psql` on the local database. |
 | `make db-reset` | Stops everything and **deletes** the database volume. |
-| `make dev` | Starts Postgres and runs the API on the host with hot reload (`dart_frog dev`) on port 8080. Run `make down` first if the `api` container is running. |
-| `make test back` | Runs the unit tests. The integration tests are skipped. |
+| `make test back` | Runs the unit tests on the host. The integration tests are skipped. |
 | `make test-integration` | Starts Postgres and runs the backend integration tests against `vaniawatch_test`. |
+
+### How the dev server reloads
+
+The `api-dev` service (`backend/Dockerfile.dev`) mounts `core/` and `backend/` from your machine. Its entrypoint (`backend/docker/dev/entrypoint.sh`) fingerprints `backend/routes`, `backend/lib`, `backend/main.dart`, `core/lib` and both pubspecs every second, and restarts `dart_frog dev` when anything changes. A change shows up in about 4 seconds. Watch it with `make backend-logs`.
+
+Dart Frog's own hot reload is not used. See [[ADR-0009 dockerized dev server restarts on change]].
 
 The schema is migrated automatically when the API starts. See [[backend.PostgresMigrator]].
 
 ## Trying the API
+
+The easiest way is **Swagger UI** at `http://localhost:8080/docs`. Click **Authorize**, enter any UUID as the `X-User-Id`, and try every endpoint from the browser. The raw OpenAPI document is at `http://localhost:8080/openapi`.
+
+With curl:
 
 Until login exists, identify yourself with any UUID in `X-User-Id`. See [[ADR-0007 temporary user identification and private collections]].
 

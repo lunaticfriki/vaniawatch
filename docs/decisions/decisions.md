@@ -15,3 +15,4 @@ Architecture decision records. Add a new one from the `decision` template whenev
 | [[ADR-0006 complications are plain strings]] | `Watch.complications` is a plain `List<String>`, a scoped exception to the no-primitives rule. | accepted |
 | [[ADR-0007 temporary user identification and private collections]] | Callers identify with `X-User-Id` until login exists; a foreign watch reads as not found. | accepted |
 | [[ADR-0008 docker postgres and embedded migrations]] | Postgres and the API run in Docker Compose; schema migrations are embedded in Dart and applied at startup. | accepted |
+| [[ADR-0009 dockerized dev server restarts on change]] | `make backend-dev` runs the API in Docker and restarts it on any source change, instead of Dart Frog hot reload. | accepted |

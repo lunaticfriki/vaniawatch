@@ -49,6 +49,15 @@ Future<Response> _get(RequestContext context, String id) async {
 - A resource owned by another user is reported as **not found** (404), never 403. See [[ADR-0007 temporary user identification and private collections]].
 - `PUT` is full replacement: omitted optional fields are cleared.
 
+## API documentation
+
+The API is documented in OpenAPI 3.1 and browsable in Swagger UI at `/docs`. The JSON document is served at `/openapi`.
+
+- Each module documents its own endpoints in `presentation/<module>_openapi.dart`, as an `OpenApiSection` with its paths and schemas. `lib/api_document.dart` merges the sections.
+- Limits and enums in the schemas are read from the `core` domain classes, never retyped.
+- Error responses reference the shared `BadRequest`, `Unauthorized`, `NotFound` and `Conflict` responses, which mirror the error middleware.
+- **A new or changed route is not done until it is documented.** `test/routes/openapi_contract_test.dart` fails when the routes and the document disagree.
+
 ## No state service
 
 The backend is stateless per request, so there is no state service. Routes depend directly on `<Concept>ReadService` and `<Concept>WriteService`.

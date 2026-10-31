@@ -34,5 +34,35 @@ services:
       db:
         condition: service_healthy
 
+  api-dev:
+    profiles: ["dev"]
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.dev
+    tty: true
+    stdin_open: true
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${DATABASE_NAME:-vaniawatch}
+      DATABASE_USER: ${DATABASE_USER:-vaniawatch}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-vaniawatch}
+    ports:
+      - "${API_PORT:-8080}:8080"
+    volumes:
+      - ./core:/app/core
+      - ./backend:/app/backend
+      - core-dart-tool:/app/core/.dart_tool
+      - backend-dart-tool:/app/backend/.dart_tool
+      - backend-dart-frog:/app/backend/.dart_frog
+      - pub-cache:/pub-cache
+    depends_on:
+      db:
+        condition: service_healthy
+
 volumes:
   db-data:
+  core-dart-tool:
+  backend-dart-tool:
+  backend-dart-frog:
+  pub-cache:

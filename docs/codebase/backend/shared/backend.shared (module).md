@@ -10,7 +10,7 @@ Package: [[backend]]
 
 ## Purpose
 
-Cross-cutting backend plumbing: the clock, the database, migrations, HTTP error mapping, request identity and JSON parsing.
+Cross-cutting backend plumbing: the clock, the database, migrations, HTTP error mapping, request identity, JSON parsing and the OpenAPI/Swagger documentation.
 
 ## Concepts
 
@@ -25,3 +25,4 @@ Cross-cutting backend plumbing: the clock, the database, migrations, HTTP error 
 ### Presentation (HTTP)
 
 - [[backend.ErrorMiddleware]], [[backend.RequestUser]], [[backend.JsonRequest]], [[backend.HealthRoute]]
+- API documentation: [[backend.OpenApiDocument]], [[backend.ApiDocsRoute]]
