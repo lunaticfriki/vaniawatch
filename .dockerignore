@@ -1,0 +1,12 @@
+**/.dart_tool
+**/build
+**/.dart_frog
+**/coverage
+**/.DS_Store
+.git
+.husky
+node_modules
+docs
+frontend
+scripts
+.env

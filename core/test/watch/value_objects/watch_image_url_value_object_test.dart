@@ -47,6 +47,24 @@ void main() {
       );
     });
 
+    test('optional treats a blank value as no image', () {
+      expect(WatchImageUrl.optional(''), WatchImageUrl.empty());
+      expect(WatchImageUrl.optional('   '), WatchImageUrl.empty());
+    });
+
+    test('optional creates an image url from a non blank value', () {
+      final value = PrimitiveMother.url();
+
+      expect(WatchImageUrl.optional(value), WatchImageUrl.create(value));
+    });
+
+    test('optional still rejects an invalid url', () {
+      expect(
+        () => WatchImageUrl.optional('not a url'),
+        throwsA(isA<InvalidWatchImageUrlError>()),
+      );
+    });
+
     test('empty means there is no image', () {
       expect(WatchImageUrl.empty().isEmpty, isTrue);
       expect(WatchImageUrlMother.random().isEmpty, isFalse);

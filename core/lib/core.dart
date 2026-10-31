@@ -2,6 +2,7 @@ library;
 
 export 'src/shared/errors/domain_error.dart';
 export 'src/shared/errors/invalid_updated_at_error.dart';
+export 'src/shared/errors/not_found_error.dart';
 export 'src/shared/services/uuid_service.dart';
 export 'src/shared/value_objects/created_at_value_object.dart';
 export 'src/shared/value_objects/updated_at_value_object.dart';
@@ -10,6 +11,8 @@ export 'src/user/value_objects/user_email_value_object.dart';
 export 'src/user/value_objects/user_id_value_object.dart';
 export 'src/user/value_objects/user_name_value_object.dart';
 export 'src/watch/entities/watch_entity.dart';
+export 'src/watch/errors/watch_not_found_error.dart';
+export 'src/watch/repositories/watch_repository.dart';
 export 'src/watch/value_objects/watch_brand_value_object.dart';
 export 'src/watch/value_objects/watch_category_value_object.dart';
 export 'src/watch/value_objects/watch_description_value_object.dart';

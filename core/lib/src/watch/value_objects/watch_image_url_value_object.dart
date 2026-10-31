@@ -13,6 +13,10 @@ final class WatchImageUrl {
 
   factory WatchImageUrl.empty() => const WatchImageUrl._('');
 
+  factory WatchImageUrl.optional(String value) => value.trim().isEmpty
+      ? WatchImageUrl.empty()
+      : WatchImageUrl.create(value);
+
   static const Set<String> _schemes = {'http', 'https'};
 
   static bool _isValid(String value) {

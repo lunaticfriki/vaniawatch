@@ -13,3 +13,5 @@ Architecture decision records. Add a new one from the `decision` template whenev
 | [[ADR-0004 docs vault is the map of the code]] | The Obsidian vault is read before the code and updated after every task. | accepted |
 | [[ADR-0005 entities receive time and reference owners by id]] | Entities receive `CreatedAt` and `UpdatedAt` from outside, timestamps only move forward, and a watch references its owner by `UserId`. | accepted |
 | [[ADR-0006 complications are plain strings]] | `Watch.complications` is a plain `List<String>`, a scoped exception to the no-primitives rule. | accepted |
+| [[ADR-0007 temporary user identification and private collections]] | Callers identify with `X-User-Id` until login exists; a foreign watch reads as not found. | accepted |
+| [[ADR-0008 docker postgres and embedded migrations]] | Postgres and the API run in Docker Compose; schema migrations are embedded in Dart and applied at startup. | accepted |

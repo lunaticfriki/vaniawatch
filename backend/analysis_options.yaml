@@ -1,0 +1,9 @@
+include: package:dart_frog_lint/recommended.yaml
+
+analyzer:
+  errors:
+    one_member_abstracts: ignore
+
+linter:
+  rules:
+    public_member_api_docs: false

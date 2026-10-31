@@ -62,5 +62,6 @@ If in doubt, the logic belongs in `core`, unless it is strictly technical: I/O, 
 3. [[03-code-style]]: no comments, lints, formatting, Dart idioms.
 4. [[04-git-workflow]]: conventional commits and the pre-push test guard.
 5. [[05-docs-vault]]: the vault layout, codebase notes, and the read-before and update-after workflow.
+6. [[06-local-environment]]: Docker, Postgres, make commands, configuration and trying the API.
 
 [[glossary]] defines the terms used across these docs.

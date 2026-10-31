@@ -47,6 +47,9 @@ make test core        # also: back, front; no scope = all
 make analyze core
 make check            # same as pre-push
 make docs
+make up               # Postgres + API in Docker (localhost:8080)
+make dev              # Postgres in Docker, API with hot reload
+make test-integration # backend tests against Postgres
 ```
 
 Commits use `type(scope): description`, with scope `core`, `backend`, `frontend` or `repo`. Use `git commit -m "..."` in non-interactive shells. See docs/development/04-git-workflow.md.

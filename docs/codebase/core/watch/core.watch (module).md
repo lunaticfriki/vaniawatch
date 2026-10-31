@@ -17,6 +17,8 @@ The watches in a user's private collection.
 ### Domain
 
 - Entity (aggregate root): [[core.Watch]]
+- Port: [[core.WatchRepository]]
+- Errors: [[core.WatchNotFoundError]]
 - Value objects: [[core.WatchId]], [[core.WatchName]], [[core.WatchDescription]], [[core.WatchBrand]], [[core.WatchType]], [[core.WatchCategory]], [[core.WatchTag]], [[core.WatchTags]], [[core.WatchImageUrl]]
 - Complications are plain strings on [[core.Watch]] ([[ADR-0006 complications are plain strings]])
 - Mothers: one per value object, plus `WatchComplicationsMother` (`List<String>`) and `WatchMother`

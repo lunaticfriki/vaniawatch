@@ -1,0 +1,3 @@
+tags:
+  integration:
+    skip: "Needs Postgres. Run with: make test-integration"

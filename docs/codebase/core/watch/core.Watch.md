@@ -57,6 +57,7 @@ Every change takes `at: UpdatedAt`, rejects a moment before the current `updated
 - Fields: [[core.WatchId]], [[core.WatchName]], [[core.WatchDescription]], [[core.WatchBrand]], [[core.WatchType]], [[core.WatchCategory]], [[core.WatchTags]], [[core.WatchImageUrl]], [[core.CreatedAt]], [[core.UpdatedAt]]
 - Owner: [[core.UserId]] of a [[core.User]]
 - Raises [[core.InvalidUpdatedAtError]]
+- Persisted through [[core.WatchRepository]]
 - Decisions: [[ADR-0005 entities receive time and reference owners by id]], [[ADR-0006 complications are plain strings]]
 
 ## Testing

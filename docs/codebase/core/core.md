@@ -25,11 +25,11 @@ The domain of VaniaWatch: entities, value objects, repository ports, domain serv
 ## Modules
 
 - [[core.user (module)]]: users who own private watch collections
-- [[core.watch (module)]]: the watches in a collection
+- [[core.watch (module)]]: the watches in a collection, their repository port and errors
 
 ## Shared
 
-- [[core.shared (module)]]: `DomainError`, `InvalidUpdatedAtError`, `CreatedAt`, `UpdatedAt`, `UuidService`
+- [[core.shared (module)]]: `DomainError`, `NotFoundError`, `InvalidUpdatedAtError`, `CreatedAt`, `UpdatedAt`, `UuidService`
 
 ## Public API
 

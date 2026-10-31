@@ -9,6 +9,6 @@ The map of all the code. Start here before opening any source file. See [[05-doc
 |---|---|---|
 | Domain (pure Dart) | [[core]] | implemented: modules user and watch, plus shared |
 | Flutter app | [[frontend]] | planned |
-| Dart Frog server | [[backend]] | planned |
+| Dart Frog server | [[backend]] | implemented: watch CRUD on Postgres, dockerized |
 
 Rules: [[01-monorepo]], [[02-hexagonal-architecture]]

@@ -1,0 +1,38 @@
+name: vaniawatch
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${DATABASE_USER:-vaniawatch}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-vaniawatch}
+      POSTGRES_DB: ${DATABASE_NAME:-vaniawatch}
+    ports:
+      - "${DATABASE_PORT:-5432}:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./backend/docker/postgres:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER:-vaniawatch} -d ${DATABASE_NAME:-vaniawatch}"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${DATABASE_NAME:-vaniawatch}
+      DATABASE_USER: ${DATABASE_USER:-vaniawatch}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-vaniawatch}
+    ports:
+      - "${API_PORT:-8080}:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db-data:

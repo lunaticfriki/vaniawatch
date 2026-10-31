@@ -1,0 +1,19 @@
+name: backend
+description: VaniaWatch API. Dart Frog server on top of the core domain.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.13.0
+
+dependencies:
+  core:
+    path: ../core
+  dart_frog: ^1.1.0
+  meta: ^1.19.0
+  postgres: ^3.5.20
+
+dev_dependencies:
+  dart_frog_lint: ^0.1.0
+  mocktail: ^1.0.0
+  test: ^1.25.6

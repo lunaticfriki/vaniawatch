@@ -25,6 +25,7 @@ Trimmed, and must be an absolute `http` or `https` URL with a host. Otherwise `I
 
 - `create(String)`
 - `empty()`
+- `optional(String)`: a blank value gives `empty()`; anything else goes through `create`. Use it for user input where the image is optional.
 
 ## Relations
 

@@ -11,7 +11,8 @@ Source code contains **no comments of any kind**: no `//`, no `///` dartdoc, no 
 
 ## Dart idioms
 
-- Use `final class` by default. Use `sealed class` for closed hierarchies such as Cubit states, Bloc events and result types. Use `abstract class` for contracts (ports and services). Use `abstract final class` for static-only holders such as mappers and Mothers.
+- Use `final class` by default. Use `sealed class` for closed hierarchies such as Cubit states, Bloc events and result types. Use `abstract class` for contracts (ports and services). Use `abstract final class` for static-only holders such as mappers and Mothers. Command and query handlers are plain `class`, because the read and write service tests mock them and mocktail cannot implement a `final class` from another library.
+- Use private named parameters (`required this._name`) to initialize private fields, instead of an initializer list.
 - Use private constructors (`ClassName._`) plus named factories (`create`, `empty`, `restore`, …) for entities, value objects, read models, commands and queries.
 - Constructor injection is the only kind of injection. These classes take their dependencies through a regular `const` constructor where possible: services, handlers, repositories, Cubits, Blocs and mappers with dependencies. Widgets, Cubit states and Bloc events also keep normal constructors, as Flutter requires.
 - Implementations `implements` their `abstract class` contract.
@@ -26,7 +27,8 @@ Source code contains **no comments of any kind**: no `//`, no `///` dartdoc, no 
 - Format with `dart format .` and leave the result untouched.
 - `dart analyze` (or `flutter analyze`) MUST report zero issues.
 - Lints:
-  - `core` and `backend` use `package:lints/recommended.yaml`.
+  - `core` uses `package:lints/recommended.yaml`.
+  - `backend` uses `package:dart_frog_lint/recommended.yaml`, with `public_member_api_docs` disabled (it would force doc comments) and `one_member_abstracts` ignored (single-method contracts such as `ClockService` are intended).
   - `frontend` uses `package:flutter_lints/flutter.yaml`.
   - Stricter rules can be added per package in `analysis_options.yaml` and are then applied repo-wide by agreement.
 - No code generation (`build_runner`, `freezed`, `json_serializable`) unless it is explicitly agreed and documented here.

@@ -29,16 +29,25 @@ Future<Response> _get(RequestContext context, String id) async {
 - Request parsing and response serialization live in `backend/lib/modules/<module>/presentation/`, for example `OrderResponse` and `ConfirmOrderRequest`. They do not live in the route file.
 - Routes do not catch domain errors. The error middleware does.
 
-## Middleware
+## Middleware and the entrypoint
 
-- `routes/_middleware.dart` installs, in order, the **error middleware** and the **composition root** provider.
-- **Error middleware** (`backend/lib/shared/http/error_middleware.dart`) is the single place that maps domain errors to HTTP responses:
-  - `*NotFoundError` → `404`
-  - validation errors (invalid value objects) → `400` or `422`
-  - invariant violations → `409`
-  - any other `DomainError` → `400`
-  - anything unexpected → `500`, logged, with no internal details in the body
-- **Composition root** (`backend/lib/composition_root.dart`) builds repositories, handlers and services once, and exposes the read and write services with `provider<T>`. Routes never see a repository.
+- `backend/main.dart` is the Frog custom entrypoint.
+  - `init` opens the Postgres pool and runs the migrations.
+  - `run` wraps the whole handler in the **composition root** (`backend/lib/composition_root.dart`). The composition root builds the repositories, handlers and services once, and exposes only the read and write services with `provider<T>`. Routes never see a repository.
+- `routes/_middleware.dart` installs the **error middleware** for every route.
+- Feature folders install their own middleware. `routes/watches/_middleware.dart` installs the request user middleware, so `/health` needs no identity.
+- **Error middleware** (`backend/lib/shared/http/error_middleware.dart`) is the single place that maps errors to HTTP responses:
+
+  | Error | Status |
+  |---|---|
+  | `InvalidRequestError` (malformed JSON, missing or wrong-typed fields) | 400 |
+  | any `NotFoundError` (from `core`) | 404 |
+  | `InvalidUpdatedAtError` | 409 |
+  | any other `DomainError`, which covers validation errors | 400 |
+  | anything unexpected | 500, logged to stderr; the body has no internal details |
+
+- A resource owned by another user is reported as **not found** (404), never 403. See [[ADR-0007 temporary user identification and private collections]].
+- `PUT` is full replacement: omitted optional fields are cleared.
 
 ## No state service
 
@@ -48,12 +57,15 @@ The backend is stateless per request, so there is no state service. Routes depen
 
 ```
 backend/
+  main.dart
+  Dockerfile
   routes/
     _middleware.dart
+    health.dart
     orders/
+      _middleware.dart
+      index.dart
       [id].dart
-      [id]/
-        confirm.dart
   lib/
     composition_root.dart
     modules/
@@ -64,9 +76,18 @@ backend/
           order_response.dart
           confirm_order_request.dart
     shared/
+      application/
+        clock_service.dart
+      infrastructure/
+        system_clock_service.dart
+        database/
       http/
         error_middleware.dart
+        json_request.dart
+        request_user_middleware.dart
 ```
+
+[[backend]] shows the real tree, and [[06-local-environment]] covers how to run it.
 
 ## What the backend MUST NOT do
 

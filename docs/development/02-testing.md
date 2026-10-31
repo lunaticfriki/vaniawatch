@@ -35,6 +35,7 @@ Testing mirrors the layers:
 | `make format [scope]` | `format .` |
 | `make check` | `pnpm check`: the docs check plus format, analyze and test for every package, the same as pre-push |
 | `make docs` | `pnpm docs:check` |
+| `make test-integration` | starts Postgres in Docker and runs the backend tests tagged `integration` |
 
 ## Domain tests: no mocks
 
@@ -113,6 +114,17 @@ blocTest<OrderDetailsCubit, OrderDetailsState>(
 
 - **Page:** provide a `MockCubit` from `bloc_test`, stub its state, and assert that the right branch renders: the skeleton, the failure view or the loaded view.
 - **View:** pump the widget with plain parameters from Object Mothers. No mocks are needed.
+
+## Integration tests
+
+Tests that need a real dependency, such as the Postgres repository and the migrator, are tagged:
+
+```dart
+@Tags(['integration'])
+library;
+```
+
+`backend/dart_test.yaml` skips that tag by default, so `make test`, `pnpm check` and pre-push stay fast and need no Docker. `make test-integration` runs them against the `vaniawatch_test` database, migrating it and truncating tables between tests.
 
 ## Backend route tests
 
