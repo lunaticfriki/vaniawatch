@@ -8,7 +8,7 @@ The map of all the code. Start here before opening any source file. See [[05-doc
 | Package | Note | Status |
 |---|---|---|
 | Domain (pure Dart) | [[core]] | implemented: modules user and watch, plus shared |
-| Flutter app | [[frontend]] | planned |
+| Flutter app | [[frontend]] | implemented: module watch (latest and all watches), shell with header and footer |
 | Dart Frog server | [[backend]] | implemented: watch CRUD on Postgres, dockerized |
 
 Rules: [[01-monorepo]], [[02-hexagonal-architecture]]

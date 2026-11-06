@@ -16,3 +16,5 @@ Architecture decision records. Add a new one from the `decision` template whenev
 | [[ADR-0007 temporary user identification and private collections]] | Callers identify with `X-User-Id` until login exists; a foreign watch reads as not found. | accepted |
 | [[ADR-0008 docker postgres and embedded migrations]] | Postgres and the API run in Docker Compose; schema migrations are embedded in Dart and applied at startup. | accepted |
 | [[ADR-0009 dockerized dev server restarts on change]] | `make backend-dev` runs the API in Docker and restarts it on any source change, instead of Dart Frog hot reload. | accepted |
+| [[ADR-0010 local seed goes through the write service]] | `make seed` loads demo watches for two fixed users through the write service, and is safe to run again. | accepted |
+| [[ADR-0011 frontend app shell routing and api access]] | The app routes with `go_router` inside one shell, reads through an application-level port over HTTP, is configured with `--dart-define`, and the backend allows CORS. | accepted |

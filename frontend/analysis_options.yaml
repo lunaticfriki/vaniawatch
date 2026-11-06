@@ -1,0 +1,21 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - build/**
+    - macos/**
+    - web/**
+    - android/**
+    - ios/**
+    - windows/**
+    - linux/**
+  errors:
+    one_member_abstracts: ignore
+
+linter:
+  rules:
+    always_use_package_imports: true
+    prefer_single_quotes: true
+    prefer_final_locals: true
+    require_trailing_commas: true
+    sort_child_properties_last: true

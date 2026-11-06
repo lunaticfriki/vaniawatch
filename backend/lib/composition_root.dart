@@ -10,21 +10,32 @@ import 'package:backend/shared/application/clock_service.dart';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:postgres/postgres.dart';
 
-Middleware compositionRoot({
+typedef WatchServices = ({WatchReadService read, WatchWriteService write});
+
+WatchServices watchServices({
   required Session database,
   required ClockService clock,
 }) {
   final watches = PostgresWatchRepository(database);
-  final WatchReadService readService = WatchReadServiceImpl(
-    getWatch: GetWatchQueryHandler(watches),
-    listWatches: ListWatchesQueryHandler(watches),
+  return (
+    read: WatchReadServiceImpl(
+      getWatch: GetWatchQueryHandler(watches),
+      listWatches: ListWatchesQueryHandler(watches),
+    ),
+    write: WatchWriteServiceImpl(
+      createWatch: CreateWatchCommandHandler(watches, clock),
+      updateWatch: UpdateWatchCommandHandler(watches, clock),
+      deleteWatch: DeleteWatchCommandHandler(watches),
+    ),
   );
-  final WatchWriteService writeService = WatchWriteServiceImpl(
-    createWatch: CreateWatchCommandHandler(watches, clock),
-    updateWatch: UpdateWatchCommandHandler(watches, clock),
-    deleteWatch: DeleteWatchCommandHandler(watches),
-  );
+}
+
+Middleware compositionRoot({
+  required Session database,
+  required ClockService clock,
+}) {
+  final watch = watchServices(database: database, clock: clock);
   return (handler) => handler
-      .use(provider<WatchReadService>((_) => readService))
-      .use(provider<WatchWriteService>((_) => writeService));
+      .use(provider<WatchReadService>((_) => watch.read))
+      .use(provider<WatchWriteService>((_) => watch.write));
 }

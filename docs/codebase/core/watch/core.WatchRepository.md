@@ -29,6 +29,8 @@ The port does not enforce privacy. The application handlers check `Watch.isOwned
 
 - [[backend.PostgresWatchRepository]]
 
+The frontend does not implement this port. It reads through [[frontend.WatchCollectionRepository]] instead. See [[ADR-0011 frontend app shell routing and api access]].
+
 ## Relations
 
 - Persists [[core.Watch]]

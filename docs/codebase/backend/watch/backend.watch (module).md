@@ -24,6 +24,7 @@ From core: [[core.Watch]], [[core.WatchRepository]], [[core.WatchNotFoundError]]
 - Queries: [[backend.GetWatchQuery]], [[backend.ListWatchesQuery]]
 - [[backend.WatchReadModel]]
 - [[backend.WatchReadService]], [[backend.WatchWriteService]]
+- Local seed: [[backend.WatchSeeder]], [[backend.WatchSeedCatalog]]
 
 ### Infrastructure
 

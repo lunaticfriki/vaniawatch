@@ -33,8 +33,28 @@ Every setting has a default, so no configuration is needed. To change one, copy 
 | `make db` | Starts only Postgres. |
 | `make db-shell` | Opens `psql` on the local database. |
 | `make db-reset` | Stops everything and **deletes** the database volume. |
+| `make seed` | Starts Postgres, migrates, and (re)loads the demo watches of two fixed users. Running it again replaces only their watches. Needs Dart on the host. See [[backend.WatchSeeder]]. |
 | `make test back` | Runs the unit tests on the host. The integration tests are skipped. |
 | `make test-integration` | Starts Postgres and runs the backend integration tests against `vaniawatch_test`. |
+
+## Running the app
+
+The Flutter app talks to the local API, so start the backend and the demo data first:
+
+```sh
+make backend-dev
+make seed
+cd frontend
+flutter run -d chrome
+```
+
+`-d macos` works too. By default the app calls `http://localhost:8080` as the seeded collector. To change either, pass defines ([[frontend.ApiConfig]]):
+
+```sh
+flutter run -d chrome --dart-define=API_URL=http://localhost:8080 --dart-define=USER_ID=00000000-0000-4000-8000-000000000002
+```
+
+The web app runs on another origin, so the API sends CORS headers ([[backend.CorsMiddleware]]).
 
 ### How the dev server reloads
 
@@ -47,6 +67,17 @@ The schema is migrated automatically when the API starts. See [[backend.Postgres
 ## Trying the API
 
 The easiest way is **Swagger UI** at `http://localhost:8080/docs`. Click **Authorize**, enter any UUID as the `X-User-Id`, and try every endpoint from the browser. The raw OpenAPI document is at `http://localhost:8080/openapi`.
+
+### Demo data
+
+Run `make seed`, then use one of these IDs in **Authorize**:
+
+| User | `X-User-Id` | Watches |
+|---|---|---|
+| collector | `00000000-0000-4000-8000-000000000001` | 8 |
+| newcomer | `00000000-0000-4000-8000-000000000002` | 2 |
+
+The data lives in [[backend.WatchSeedCatalog]].
 
 With curl:
 

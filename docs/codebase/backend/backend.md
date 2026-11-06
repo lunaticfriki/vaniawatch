@@ -7,6 +7,7 @@ source:
   - backend/analysis_options.yaml
   - backend/dart_test.yaml
   - backend/main.dart
+  - backend/bin/seed.dart
   - backend/lib/composition_root.dart
   - backend/lib/api_document.dart
   - backend/Dockerfile
@@ -31,7 +32,8 @@ The VaniaWatch HTTP API: a Dart Frog server on top of [[core]], persisting to Po
 - `backend/main.dart`: the Frog custom entrypoint.
   - `init` opens the pool ([[backend.PostgresDatabase]]) and runs [[backend.PostgresMigrator]].
   - `run` wraps every request in the composition root.
-- `backend/lib/composition_root.dart`: builds the repositories, handlers and services once, and exposes [[backend.WatchReadService]] and [[backend.WatchWriteService]] to the routes with `provider`. It is the only file that imports every layer.
+- `backend/lib/composition_root.dart`: builds the repositories, handlers and services once (`watchServices`), and exposes [[backend.WatchReadService]] and [[backend.WatchWriteService]] to the routes with `provider`. It is the only file in `lib/` that imports every layer.
+- `backend/bin/seed.dart`: the local seed (`make seed`). It migrates, builds the services with `watchServices`, and runs [[backend.WatchSeeder]] on [[backend.WatchSeedCatalog]]. It is not part of the server image. See [[ADR-0010 local seed goes through the write service]].
 - `backend/lib/api_document.dart`: assembles the OpenAPI document from every module's section ([[backend.OpenApiDocument]]). Add a new module's section here. It is served at `/openapi`, with Swagger UI at `/docs` ([[backend.ApiDocsRoute]]).
 - `backend/Dockerfile`: a multi-stage build (`dart_frog build`, then `dart compile exe`) into a `scratch` image of about 17 MB. The build context is the repo root, because the backend depends on `../core`.
 - `backend/Dockerfile.dev` and `backend/docker/dev/entrypoint.sh`: the `api-dev` service (compose profile `dev`). It mounts the sources and restarts `dart_frog dev` on change ([[ADR-0009 dockerized dev server restarts on change]]).
@@ -57,4 +59,4 @@ Swagger UI: `http://localhost:8080/docs`. OpenAPI JSON: `http://localhost:8080/o
 
 ## Decisions
 
-[[ADR-0007 temporary user identification and private collections]], [[ADR-0008 docker postgres and embedded migrations]], [[ADR-0009 dockerized dev server restarts on change]]
+[[ADR-0007 temporary user identification and private collections]], [[ADR-0008 docker postgres and embedded migrations]], [[ADR-0009 dockerized dev server restarts on change]], [[ADR-0010 local seed goes through the write service]]

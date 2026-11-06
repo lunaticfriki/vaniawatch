@@ -29,7 +29,7 @@ define run
 	fi
 endef
 
-.PHONY: help test analyze format check docs up down logs db db-shell db-reset backend-dev backend-logs backend-stop test-integration $(SCOPES)
+.PHONY: help test analyze format check docs up down logs db db-shell db-reset seed backend-dev backend-logs backend-stop test-integration $(SCOPES)
 
 help:
 	@echo "Usage: make <command> [core|back|front]   (no scope = all)"
@@ -50,6 +50,7 @@ help:
 	@echo "  db                start only Postgres"
 	@echo "  db-shell          open psql on the local database"
 	@echo "  db-reset          stop everything and DELETE the local database volume"
+	@echo "  seed              start Postgres and (re)load the demo watches"
 	@echo "  test-integration  start Postgres and run the backend integration tests"
 
 test: $(addprefix test-,$(SELECTED))
@@ -115,6 +116,9 @@ db-shell: db
 
 db-reset:
 	@$(COMPOSE) down -v
+
+seed: db
+	@cd backend && dart run bin/seed.dart
 
 test-integration: db
 	@cd backend && dart test --run-skipped --tags integration
