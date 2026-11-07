@@ -21,7 +21,7 @@ read
 
 - `list(ListWatchesQuery)`: returns `List<WatchReadModel>`.
 
-There is no write service yet: nothing in the app changes a watch.
+Changes go through [[frontend.WatchWriteService]].
 
 ## Relations
 

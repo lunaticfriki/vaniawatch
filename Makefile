@@ -102,7 +102,11 @@ backend-dev:
 
 dev: backend-dev
 	@echo "▶ starting the macOS app as $(APP_USER)  ·  r hot reload  ·  R restart  ·  q quit"
-	@cd frontend && flutter run -d macos --dart-define=API_URL=$(API_URL) --dart-define=USER_ID=$(APP_USER)
+	@cd frontend && flutter run -d macos \
+		--dart-define=API_URL=$(API_URL) \
+		--dart-define=USER_ID=$(APP_USER) \
+		--dart-define=CLOUDINARY_CLOUD_NAME=$(CLOUDINARY_CLOUD_NAME) \
+		--dart-define=CLOUDINARY_UPLOAD_PRESET=$(CLOUDINARY_UPLOAD_PRESET)
 
 backend-logs:
 	@$(COMPOSE) logs -f api api-dev

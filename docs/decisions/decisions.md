@@ -19,3 +19,4 @@ Architecture decision records. Add a new one from the `decision` template whenev
 | [[ADR-0010 local seed goes through the write service]] | `make seed` loads demo watches for two fixed users through the write service, and is safe to run again. | accepted |
 | [[ADR-0011 frontend app shell routing and api access]] | The app routes with `go_router` inside one shell, reads through an application-level port over HTTP, is configured with `--dart-define`, and the backend allows CORS. | accepted |
 | [[ADR-0012 make dev runs the macos app on the host]] | `make dev` starts Postgres and the API in Docker, then `flutter run -d macos` on the host in the foreground. | accepted |
+| [[ADR-0013 watch images upload to cloudinary from the app]] | The app uploads watch photos to Cloudinary with an unsigned preset and sends the URL to the API; uploads are off until Cloudinary is configured. | accepted |

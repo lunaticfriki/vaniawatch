@@ -3,6 +3,7 @@ import 'package:core/testing.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/modules/watch/infrastructure/acl/watch_mapper.dart';
 
+import '../../application/watch_draft_mother.dart';
 import 'watch_json_mother.dart';
 
 void main() {
@@ -45,6 +46,25 @@ void main() {
         () => WatchMapper.toDomain(json, owner: UserIdMother.random()),
         throwsA(isA<InvalidWatchTypeError>()),
       );
+    });
+
+    test('writes a draft as the api create payload', () {
+      final draft = WatchDraftMother.withImage();
+
+      expect(WatchMapper.toJson(draft), {
+        'name': draft.name.value,
+        'brand': draft.brand.value,
+        'type': draft.type.value,
+        'category': draft.category.value,
+        'description': draft.description.value,
+        'tags': draft.tags.values.map((tag) => tag.value).toList(),
+        'complications': draft.complications,
+        'imageUrl': draft.imageUrl.value,
+      });
+    });
+
+    test('writes an empty image url for a draft without image', () {
+      expect(WatchMapper.toJson(WatchDraftMother.random())['imageUrl'], '');
     });
   });
 }

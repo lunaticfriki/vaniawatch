@@ -1,25 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/shared/presentation/app_menu.dart';
 import 'package:frontend/shared/presentation/app_routes.dart';
 
 class AppHeaderView extends StatelessWidget {
   const AppHeaderView({
     required this.location,
     required this.onNavigate,
+    required this.onOpenMenu,
     super.key,
   });
 
   static const String title = 'VaniaWatch';
-  static const String homeLabel = 'Home';
-  static const String allWatchesLabel = 'All watches';
+  static const String menuLabel = 'Menu';
+  static const double compactBreakpoint = 600;
 
   final String location;
   final ValueChanged<String> onNavigate;
+  final VoidCallback onOpenMenu;
+
+  static bool isCompact(BuildContext context) =>
+      MediaQuery.sizeOf(context).width < compactBreakpoint;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = theme.colorScheme;
     return Material(
-      color: theme.colorScheme.primaryContainer,
+      color: colors.primaryContainer,
       child: SafeArea(
         bottom: false,
         child: Padding(
@@ -32,22 +39,26 @@ class AppHeaderView extends StatelessWidget {
                 child: Text(
                   title,
                   style: theme.textTheme.titleLarge?.copyWith(
-                    color: theme.colorScheme.onPrimaryContainer,
+                    color: colors.onPrimaryContainer,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               const Spacer(),
-              AppHeaderLink(
-                label: homeLabel,
-                isActive: location == AppRoutes.home,
-                onPressed: () => onNavigate(AppRoutes.home),
-              ),
-              AppHeaderLink(
-                label: allWatchesLabel,
-                isActive: location == AppRoutes.watches,
-                onPressed: () => onNavigate(AppRoutes.watches),
-              ),
+              if (isCompact(context))
+                IconButton(
+                  tooltip: menuLabel,
+                  color: colors.onPrimaryContainer,
+                  onPressed: onOpenMenu,
+                  icon: const Icon(Icons.menu),
+                )
+              else
+                for (final item in AppMenu.items)
+                  AppHeaderLink(
+                    label: item.label,
+                    isActive: location == item.route,
+                    onPressed: () => onNavigate(item.route),
+                  ),
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:frontend/modules/watch/application/watch_draft.dart';
 
 abstract final class WatchMapper {
   static Watch toDomain(
@@ -23,4 +24,15 @@ abstract final class WatchMapper {
     createdAt: CreatedAt.create(DateTime.parse(json['createdAt'] as String)),
     updatedAt: UpdatedAt.create(DateTime.parse(json['updatedAt'] as String)),
   );
+
+  static Map<String, dynamic> toJson(WatchDraft draft) => {
+    'name': draft.name.value,
+    'brand': draft.brand.value,
+    'type': draft.type.value,
+    'category': draft.category.value,
+    'description': draft.description.value,
+    'tags': draft.tags.values.map((tag) => tag.value).toList(),
+    'complications': draft.complications,
+    'imageUrl': draft.imageUrl.isEmpty ? '' : draft.imageUrl.value,
+  };
 }

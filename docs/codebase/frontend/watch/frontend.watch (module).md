@@ -10,7 +10,7 @@ Package: [[frontend]]
 
 ## Purpose
 
-Shows the watches of the current user's private collection: the latest five on the home page, and all of them on `/watches`. It is read-only for now.
+The current user's private collection: the latest five watches on the home page, all of them on `/watches`, and a form on `/add` to add one with an optional photo uploaded to Cloudinary.
 
 ## Concepts
 
@@ -20,19 +20,22 @@ From core: [[core.Watch]]
 
 ### Application
 
-- Port: [[frontend.WatchCollectionRepository]]
+- Ports: [[frontend.WatchCollectionRepository]], [[frontend.WatchImageStorage]], [[frontend.WatchImagePicker]]
 - Query: [[frontend.ListWatchesQuery]]
-- [[frontend.WatchReadModel]]
-- [[frontend.WatchReadService]]
+- Command: [[frontend.CreateWatchCommand]]
+- [[frontend.WatchReadModel]], [[frontend.WatchDraft]]
+- [[frontend.WatchReadService]], [[frontend.WatchWriteService]]
 
 ### Infrastructure
 
 - [[frontend.HttpWatchCollectionRepository]], [[frontend.WatchMapper]]
+- [[frontend.CloudinaryWatchImageStorage]] (and `UnavailableWatchImageStorage`)
+- `FileSelectorWatchImagePicker` ([[frontend.WatchImagePicker]])
 
 ### Presentation
 
-- State service: [[frontend.WatchListCubit]]
-- Pages: [[frontend.LatestWatchesPage]] (`/`), [[frontend.WatchListPage]] (`/watches`)
+- State services: [[frontend.WatchListCubit]], [[frontend.AddWatchCubit]]
+- Pages: [[frontend.LatestWatchesPage]] (`/`), [[frontend.WatchListPage]] (`/watches`), [[frontend.AddWatchPage]] (`/add`)
 - Shared views: [[frontend.WatchCardView]]
 
 ## Depends on
@@ -40,3 +43,4 @@ From core: [[core.Watch]]
 - [[core.watch (module)]]
 - [[frontend.shared (module)]]
 - The backend API: [[backend.WatchesRoute]]
+- Cloudinary, for photos: [[ADR-0013 watch images upload to cloudinary from the app]]

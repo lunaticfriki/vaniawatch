@@ -15,7 +15,7 @@ Rules: [[05-infrastructure-layer#Swappable implementations]]
 
 ## Purpose
 
-Loads the collection from the backend with `package:http`.
+Loads and adds watches through the backend with `package:http`.
 
 ## Implements
 
@@ -23,7 +23,12 @@ Loads the collection from the backend with `package:http`.
 
 ## Talks to
 
-`GET {API_URL}/watches` with the `X-User-Id` header from [[frontend.ApiConfig]] ([[backend.WatchesRoute]]). A non-200 status or a client error becomes `WatchCollectionUnavailableException`. Every item goes through [[frontend.WatchMapper]].
+Both calls send the `X-User-Id` header from [[frontend.ApiConfig]] ([[backend.WatchesRoute]]), and every body goes through [[frontend.WatchMapper]].
+
+- `findAll`: `GET {API_URL}/watches`, expects 200.
+- `add`: `POST {API_URL}/watches` with a JSON body, expects 201 and reads the new `id`.
+
+An unexpected status or a client error becomes `WatchCollectionUnavailableException`.
 
 ## Relations
 

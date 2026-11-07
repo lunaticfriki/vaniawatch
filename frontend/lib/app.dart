@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/modules/watch/presentation/add_watch_page.dart';
 import 'package:frontend/modules/watch/presentation/latest_watches_page.dart';
 import 'package:frontend/modules/watch/presentation/watch_list_page.dart';
 import 'package:frontend/shared/presentation/app_routes.dart';
@@ -32,6 +33,11 @@ class _VaniaWatchAppState extends State<VaniaWatchApp> {
             path: AppRoutes.watches,
             pageBuilder: (context, state) =>
                 const NoTransitionPage(child: WatchListPage()),
+          ),
+          GoRoute(
+            path: AppRoutes.add,
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: AddWatchPage()),
           ),
         ],
       ),

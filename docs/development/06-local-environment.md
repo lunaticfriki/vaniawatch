@@ -20,6 +20,7 @@ Every setting has a default, so no configuration is needed. To change one, copy 
 | `DATABASE_PORT` | `5432` | the host port of Postgres |
 | `API_PORT` | `8080` | the host port of the API, and the `API_URL` that `make dev` gives the app |
 | `APP_USER_ID` | `00000000-0000-4000-8000-000000000001` | the `USER_ID` that `make dev` gives the app |
+| `CLOUDINARY_CLOUD_NAME` / `CLOUDINARY_UPLOAD_PRESET` | empty | the photo uploads of the add form, passed by `make dev`. Empty means uploads are off. See [[#Photo uploads]]. |
 | `TEST_DATABASE_NAME` | `vaniawatch_test` | the integration tests |
 
 ## Commands
@@ -65,6 +66,22 @@ flutter run -d chrome --dart-define=API_URL=http://localhost:8080 --dart-define=
 ```
 
 The web app runs on another origin, so the API sends CORS headers ([[backend.CorsMiddleware]]).
+
+### Photo uploads
+
+The add form uploads the photo to Cloudinary from the app, then sends its URL to the API. See [[ADR-0013 watch images upload to cloudinary from the app]]. Until both values below are set, the image picker is disabled and watches are saved without a photo.
+
+1. In Cloudinary, create an **unsigned** upload preset. Restrict it to a folder, image formats and a maximum file size.
+2. Put the cloud name and the preset name in `.env`:
+
+   ```sh
+   CLOUDINARY_CLOUD_NAME=your-cloud
+   CLOUDINARY_UPLOAD_PRESET=vaniawatch-unsigned
+   ```
+
+3. Run `make dev` again. The defines are read at build time, so a hot reload is not enough.
+
+Running Flutter by hand, pass them as `--dart-define=CLOUDINARY_CLOUD_NAME=...` and `--dart-define=CLOUDINARY_UPLOAD_PRESET=...`.
 
 ### How the dev server reloads
 
