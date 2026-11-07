@@ -15,17 +15,20 @@ Every setting has a default, so no configuration is needed. To change one, copy 
 
 | Variable | Default | Used by |
 |---|---|---|
-| `DATABASE_NAME` | `vaniawatch` | db, api, `make dev` |
-| `DATABASE_USER` / `DATABASE_PASSWORD` | `vaniawatch` | db, api, `make dev` |
+| `DATABASE_NAME` | `vaniawatch` | db, api, `make seed` |
+| `DATABASE_USER` / `DATABASE_PASSWORD` | `vaniawatch` | db, api, `make seed` |
 | `DATABASE_PORT` | `5432` | the host port of Postgres |
-| `API_PORT` | `8080` | the host port of the API |
+| `API_PORT` | `8080` | the host port of the API, and the `API_URL` that `make dev` gives the app |
+| `APP_USER_ID` | `00000000-0000-4000-8000-000000000001` | the `USER_ID` that `make dev` gives the app |
 | `TEST_DATABASE_NAME` | `vaniawatch_test` | the integration tests |
 
 ## Commands
 
 | Command | What it does |
 |---|---|
-| `make backend-dev` | **Day-to-day development.** Starts Postgres if it is not up, then the API dev server if it is not up. Both run in Docker. It waits for `/health` and prints the URLs. Running it again is safe: it only starts what is missing. It stops the production-like `api` container first if that one holds the port. |
+| `make dev` | **Day-to-day development.** Runs `make backend-dev`, then the macOS app on the host with `flutter run -d macos`, in the foreground. `r` hot reloads, `R` restarts, `q` quits the app and leaves the backend running. See [[ADR-0012 make dev runs the macos app on the host]]. |
+| `make logs` | Follows the logs of every container. |
+| `make backend-dev` | **Backend only.** Starts Postgres if it is not up, then the API dev server if it is not up. Both run in Docker. It waits for `/health` and prints the URLs. Running it again is safe: it only starts what is missing. It stops the production-like `api` container first if that one holds the port. |
 | `make backend-logs` | Follows the API logs (dev or production-like). |
 | `make backend-stop` | Stops the API and keeps Postgres running. |
 | `make up` | Builds the production-like image (AOT, `scratch`) and starts it with Postgres. Use it to check the real container. It stops the dev server first. |
@@ -39,7 +42,14 @@ Every setting has a default, so no configuration is needed. To change one, copy 
 
 ## Running the app
 
-The Flutter app talks to the local API, so start the backend and the demo data first:
+Load the demo data once, then start everything:
+
+```sh
+make seed
+make dev
+```
+
+To run the web build instead, start the backend and Flutter separately:
 
 ```sh
 make backend-dev

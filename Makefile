@@ -5,6 +5,7 @@ export
 
 COMPOSE := docker compose --profile dev
 API_URL := http://localhost:$(or $(API_PORT),8080)
+APP_USER := $(or $(APP_USER_ID),00000000-0000-4000-8000-000000000001)
 DB_USER := $(or $(DATABASE_USER),vaniawatch)
 DB_NAME := $(or $(DATABASE_NAME),vaniawatch)
 
@@ -29,7 +30,7 @@ define run
 	fi
 endef
 
-.PHONY: help test analyze format check docs up down logs db db-shell db-reset seed backend-dev backend-logs backend-stop test-integration $(SCOPES)
+.PHONY: help test analyze format check docs dev up down logs db db-shell db-reset seed backend-dev backend-logs backend-stop test-integration $(SCOPES)
 
 help:
 	@echo "Usage: make <command> [core|back|front]   (no scope = all)"
@@ -39,6 +40,10 @@ help:
 	@echo "  format    format the code"
 	@echo "  check     docs check + format, analyze and test for every package (same as pre-push)"
 	@echo "  docs      check the docs vault"
+	@echo ""
+	@echo "Running the app:"
+	@echo ""
+	@echo "  dev               start Postgres and the API in Docker, then the macOS app with hot reload"
 	@echo ""
 	@echo "Backend and database (Docker):"
 	@echo ""
@@ -95,8 +100,15 @@ backend-dev:
 	$(call wait_for_api)
 	@echo "✓ API $(API_URL)  ·  Swagger $(API_URL)/docs  ·  logs: make backend-logs"
 
+dev: backend-dev
+	@echo "▶ starting the macOS app as $(APP_USER)  ·  r hot reload  ·  R restart  ·  q quit"
+	@cd frontend && flutter run -d macos --dart-define=API_URL=$(API_URL) --dart-define=USER_ID=$(APP_USER)
+
 backend-logs:
 	@$(COMPOSE) logs -f api api-dev
+
+logs:
+	@$(COMPOSE) logs -f
 
 backend-stop:
 	@$(COMPOSE) stop api api-dev

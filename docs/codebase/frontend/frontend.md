@@ -36,7 +36,7 @@ The VaniaWatch Flutter app (web and macOS), on top of [[core]]. For now it shows
 
 ## Running
 
-See [[06-local-environment#Running the app]].
+See [[06-local-environment#Running the app]]. `make dev` starts the backend in Docker and the macOS app on the host. See [[ADR-0012 make dev runs the macos app on the host]].
 
 ## Modules
 
